@@ -1,0 +1,42 @@
+# ===================== C/C++ 编译生成文件 =====================
+# 可执行文件、目标文件
+*.exe
+*.out
+*.app
+*.o
+*.obj
+*.so
+*.dll
+*.lib
+*.a
+
+# 调试文件
+*.pdb
+*.ilk
+*.idb
+
+# 编译中间文件
+*.log
+*.sdf
+*.suo
+*.opensdf
+*.tlog
+*.lastbuildstate
+*.log
+*.tmp
+*.cache
+
+# ===================== VS Code 相关 =====================
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*~
+
+# ===================== 操作系统垃圾文件 =====================
+Thumbs.db
+.DS_Store
+*.swp
+*.swo
+*~
