@@ -1,5 +1,5 @@
 #include <iostream>
-#include <unordered_map>
+#include <unordered_map>// 引入哈希表头文件
 using namespace std;
 
 // 双向链表节点
@@ -13,14 +13,15 @@ struct DLinkedNode {
 
 class LRUCache {
 private:
-    unordered_map<int, DLinkedNode*> cache; // key -> 节点
+    // 哈希表：key:int  , value:DLinkedNode*
+    unordered_map<int, DLinkedNode*> cache; // key -> 指向双向链表的节点
     DLinkedNode* head; // 虚拟头结点（最近使用）
     DLinkedNode* tail; // 虚拟尾结点（最久未使用）
     int size;          // 当前缓存大小
     int capacity;      // 缓存容量
 
 public:
-    LRUCache(int capacity) {
+    LRUCache(int capacity) {// 构造函数，初始化容量和链表
         this->capacity = capacity;
         this->size = 0;
         // 初始化虚拟头尾节点，方便操作边界节点
@@ -44,7 +45,7 @@ public:
     void put(int key, int value) {
         if (cache.count(key)) {
             // key已存在，更新value并移到头部
-            DLinkedNode* node = cache[key];
+            DLinkedNode* node = cache[key];//拿着key,去哈希表cache里，快速查到这个key对应的双向链表节点，把这个节点的地址赋值给node指针。
             node->value = value;
             moveToHead(node);
         } else {
@@ -55,8 +56,8 @@ public:
             size++;
             if (size > capacity) {
                 // 超出容量，删除尾部节点（最久未使用）
-                DLinkedNode* tailNode = removeTail();
-                cache.erase(tailNode->key);
+                DLinkedNode* tailNode = removeTail();//从链表中删除尾部节点，并返回这个节点的地址
+                cache.erase(tailNode->key);//从哈希表中删除这个节点对应的key
                 delete tailNode;
                 size--;
             }
@@ -74,14 +75,14 @@ private:
 
     // 从链表中移除节点
     void removeNode(DLinkedNode* node) {
-        node->prev->next = node->next;
-        node->next->prev = node->prev;
+        node->prev->next = node->next;//把node的前一个节点(node->prev)的next指向node的下一个节点
+        node->next->prev = node->prev;//把node的下一个节点(node->next)的prev指向node的前一个节点
     }
 
-    // 把节点移到头部（先删再加）
+    // 把节点移到头部（先移除再添加）
     void moveToHead(DLinkedNode* node) {
-        removeNode(node);
-        addToHead(node);
+        removeNode(node);//先把node从链表中移除
+        addToHead(node);//再把node加到头部
     }
 
     // 删除尾部节点（虚拟尾结点之前）
@@ -92,7 +93,7 @@ private:
     }
 };
 
-// 测试主函数
+
 int main() {
     // 创建容量为 2 的 LRU 缓存
     LRUCache* lru = new LRUCache(2);
