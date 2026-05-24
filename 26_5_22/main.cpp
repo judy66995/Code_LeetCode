@@ -9,9 +9,9 @@ public:
         // 保证nums1更短，减少二分次数
         if(nums1.size() > nums2.size()) return findMedianSortedArrays(nums2, nums1);
         int m = nums1.size(), n = nums2.size();
-        int left = 0, right = m;
-        int totalLen = m + n;
-        int halfLen = (totalLen + 1) / 2;
+        int left = 0, right = m;// nums1分割位置范围[0,m]，可以切在最左边（0）或最右边（m）
+        int totalLen = m + n;// 总长度
+        int halfLen = (totalLen + 1) / 2;// 中位数位置
 
         while(left <= right) {
             // i：nums1分割位置，j：nums2分割位置
@@ -19,10 +19,10 @@ public:
             int j = halfLen - i;
 
             // 边界处理：超出数组视为无穷小/无穷大
-            int nums1Left = (i == 0) ? INT_MIN : nums1[i-1];
-            int nums1Right = (i == m) ? INT_MAX : nums1[i];
-            int nums2Left = (j == 0) ? INT_MIN : nums2[j-1];
-            int nums2Right = (j == n) ? INT_MAX : nums2[j];
+            int nums1Left = (i == 0) ? INT_MIN : nums1[i-1];//nums1切分的【左边】最后一个数字
+            int nums1Right = (i == m) ? INT_MAX : nums1[i];//nums1切分的【右边】第一个数字
+            int nums2Left = (j == 0) ? INT_MIN : nums2[j-1];//nums2切分的【左边】最后一个数字
+            int nums2Right = (j == n) ? INT_MAX : nums2[j];//nums2切分的【右边】第一个数字
 
             // 划分正确：左边最大值 ≤ 右边最小值
             if(nums1Left <= nums2Right && nums2Left <= nums1Right) {
