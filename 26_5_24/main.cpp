@@ -13,9 +13,11 @@ public:
         }
 
         // 按区间的起点从小到大排序
-        sort(intervals.begin(), intervals.end());
+        // vector<vector<int>> 这种二维数组，sort 默认按数组中第一个数从小到大排
+        sort(intervals.begin(), intervals.end());//包含于algorithm头文件中，默认按照第一个元素排序  
 
-        vector<vector<int>> res;
+        vector<vector<int>> res;// 存放合并后的区间结果
+
         // 先把第一个区间放进去
         res.push_back(intervals[0]);
 
