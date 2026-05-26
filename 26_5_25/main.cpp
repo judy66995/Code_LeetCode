@@ -6,9 +6,9 @@ using namespace std;
 class Solution {
 public:
     int calculate(string s) {
-        stack<int> st;
-        int num = 0;
-        char op = '+';
+        stack<int> st;// 存储数字，遇到乘除时直接计算并更新栈顶
+        int num = 0;// 当前数字
+        char op = '+';// 上一个运算符，初始为'+'，方便处理第一个数字
 
         for (int i = 0; i < s.size(); ++i) {
             char c = s[i];
@@ -26,8 +26,8 @@ public:
                     int top = st.top(); st.pop();
                     st.push(top / num);
                 }
-                op = c;
-                num = 0;
+                op = c;// 更新运算符
+                num = 0;// 重置数字
             }
         }
         // 累加栈内所有数
