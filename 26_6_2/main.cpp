@@ -10,7 +10,7 @@ public:
     vector<string> restoreIpAddresses(string s) {
         vector<string> res;
         string path;
-        backtrack(s, 0, 0, path, res);
+        backtrack(s, 0, 0, path, res);// 从字符串 s 的第 0 个位置开始，已经分了 0 段，当前路径 path，结果存 res
         return res;
     }
 
@@ -24,26 +24,26 @@ private:
             if (pos == n) {
                 res.push_back(path);
             }
-            return;
+            return;// 无论是否成功都要返回，因为已经分了 4 段了
         }
 
         // 每一段最多 3 个字符
         for (int i = pos; i < pos + 3 && i < n; ++i) {
-            string sub = s.substr(pos, i - pos + 1);
+            string sub = s.substr(pos, i - pos + 1);// 字符串.substr( 从哪个位置开始截 , 截多少个字符 );
 
             // 检查是否合法
-            if (!isValid(sub)) continue;
+            if (!isValid(sub)) continue;// 不合法就跳过这个循环
 
             // 拼接
-            int oldLen = path.size();
-            if (cnt != 0) path += ".";
-            path += sub;
+            int oldLen = path.size();// 记录当前路径长度，回溯时需要恢复
+            if (cnt != 0) path += ".";// 不是第一段，前面需要加点
+            path += sub;// 加上当前段
 
             // 递归
             backtrack(s, i + 1, cnt + 1, path, res);
 
             // 回溯（撤销）
-            path.resize(oldLen);
+            path.resize(oldLen);// 恢复到之前的长度，去掉刚才添加的部分
         }
     }
 
@@ -67,7 +67,6 @@ int main() {
 
     Solution sol;
     
-  
     string input = "25525511135";  
     
     vector<string> result = sol.restoreIpAddresses(input);
